@@ -1,7 +1,9 @@
+import { iConversationListData } from '@/types/Conversation'
 import { useContext, useState } from 'react'
 import { ConversationContext } from '../../context/ConversationContext'
+import iconChatMenu from '@/images/iconChatMenu.svg'
 import Avatar from '../Avatar'
-import { iConversationListData } from '../../types/Conversation'
+import Image from 'next/image'
 
 interface ConversationListProps {
     isFirstConversation?: boolean
@@ -13,13 +15,13 @@ export default function ConversationList(props: ConversationListProps) {
     const { setConversation } = useContext(ConversationContext)
     const { contactName, lastMessage, lastTime, image } = data
     const borderHeight = isFirstConversation ? '0px' : '1px'
-    const [isHover, seHover] = useState(false)
+    const [isHover, setHover] = useState(false)
 
     return (
         <div
             className='flex items-center w-full h-[4.5rem] bg-[#111B21] pl-3 pr-4 hover:bg-[#2A3942] cursor-pointer'
-            onMouseMove={() => seHover(true)}
-            onMouseLeave={() => seHover(false)}
+            onMouseMove={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
             onClick={() => setConversation(data)}
         >
             <div className='flex w-[4.8rem]'>
@@ -41,18 +43,8 @@ export default function ConversationList(props: ConversationListProps) {
                     <div className='flex flex-col w-auto text-[#aebac1]'>
                         <h1 className='text-xs'>{lastTime}</h1>
                         {isHover ? (
-                            <span className='flex cursor-pointer h-full items-center justify-center'>
-                                <svg
-                                    viewBox='0 0 19 20'
-                                    width='19'
-                                    height='20'
-                                    className=''
-                                >
-                                    <path
-                                        fill='currentColor'
-                                        d='m3.8 6.7 5.7 5.7 5.7-5.7 1.6 1.6-7.3 7.2-7.3-7.2 1.6-1.6z'
-                                    ></path>
-                                </svg>
+                            <span className='flex cursor-pointer h-full items-center rotate-90 justify-center'>
+                                <Image src={iconChatMenu} alt='iconChatMenu' />
                             </span>
                         ) : null}
                     </div>
