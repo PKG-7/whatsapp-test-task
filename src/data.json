@@ -1,0 +1,40 @@
+{
+    "conversation_list": [
+        {
+            "contactName": "Мария",
+            "lastMessage": "Тестовое задание на должность Фронтенд разработчик React",
+            "lastTime": "19:15",
+            "image": "avatar2.jpg",
+            "messageHistory": [
+                {
+                    "me": true,
+                    "message": "123"
+                },
+                {
+                    "me": false,
+                    "message": "аррпол ващшорвшаыошщ выар "
+                }
+            ]
+        },
+        {
+            "contactName": "Андрей",
+            "lastMessage": "125125вапвыа п",
+            "lastTime": "05:43",
+            "image": "avatar.jpg",
+            "messageHistory": [
+                {
+                    "me": true,
+                    "message": "фывп фывп фывп ывфп"
+                },
+                {
+                    "me": false,
+                    "message": "п34нрыварыварыварыварыв"
+                },
+                {
+                    "me": true,
+                    "message": "ывффцукрфкрфвыкарфыврфыв ы рывф рфывр "
+                }
+            ]
+        }
+    ]
+}
