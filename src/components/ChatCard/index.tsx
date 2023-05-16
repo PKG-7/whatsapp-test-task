@@ -37,7 +37,7 @@ export default function ChatCard({
                 <div className='flex py-2 w12'>
                     <div className='flex flex-col w-full h-full '>
                         <span className='overflow-y-hidden text-ellipsis text-white text-base'>
-                            {data.id}
+                            {data.id.slice(0, 11)}
                         </span>
 
                         <span className='overflow-y-hidden text-ellipsis text-[#aebac1] text-sm'>

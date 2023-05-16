@@ -1,26 +1,52 @@
-import { useEffect, useState } from 'react'
-import { useLocalStorage } from './useLocalStorage'
+import { Api } from '@/functions/Api'
 import { createNewChat, iChat } from 'entities/chat'
 import { iUserSecrets } from 'entities/userSecrets'
-import { Api } from '@/functions/Api'
+import { FormEvent, useEffect, useState } from 'react'
 
 export const useChats = (): {
     chats: iChat[] | null
     handleSync: () => Promise<void>
     isSynced: boolean
-    setChats: (value: iChat[] | ((val: iChat[] | null) => iChat[] | null) | null) => void
-    isLoading: boolean
+    handleCreateNewChat: (e: FormEvent<HTMLFormElement>, phoneInput: number) => void
 } => {
-    const [chats, setChats] = useLocalStorage<iChat[] | null>('userChats', null)
-    const [secrets] = useLocalStorage<iUserSecrets | null>('userSecrets', null)
-
     const [isSynced, setIsSynced] = useState(false)
-    const [isLoading, setIsLoading] = useState(true)
+    const [chats, setChats] = useState<iChat[] | null>(null)
+    const [secrets, setSecrets] = useState<iUserSecrets | null>(null)
 
     useEffect(() => {
-        setIsLoading(false)
+        const storedChats = localStorage.getItem('userChats')
+        const storedSecrets = localStorage.getItem('userSecrets')
+
+        if (storedChats) {
+            setChats(JSON.parse(storedChats))
+        }
+        if (storedSecrets) {
+            setSecrets(JSON.parse(storedSecrets))
+        }
     }, [])
 
+    const handleCreateNewChat = (e: FormEvent<HTMLFormElement>, phoneInput: number) => {
+        e.preventDefault()
+        //TODO: VALidate number
+
+        //TODO: Add postfix validation here
+        const idPostfix = '@c.us'
+        const id = `${phoneInput}${idPostfix}`
+        const newChat: iChat = createNewChat(id)
+        console.log(newChat)
+
+        // Api.createNewChat(newChat) //TODO: add new chat to db
+        setChats((prev) => {
+            const updatedChats = [...(prev || []), newChat]
+            localStorage.setItem('userChats', JSON.stringify(updatedChats))
+            return updatedChats
+        })
+        // handleSync()
+
+        console.log(newChat)
+    }
+
+    //* Adds chats from API history
     const handleSync = async () => {
         if (secrets) {
             const syncedChats = await Api.getChats(secrets)
@@ -47,5 +73,5 @@ export const useChats = (): {
         }
     }
 
-    return { chats, handleSync, isSynced, setChats, isLoading }
+    return { handleCreateNewChat, chats, handleSync, isSynced }
 }

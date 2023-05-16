@@ -16,8 +16,8 @@ export function ChatMessagesScreen({ messages }: { messages: iMessage[] }) {
             style={{ backgroundImage: "url('/assets/images/background.jpg')" }}
         >
             {messages
-                .slice()
-                .reverse()
+                // .slice()
+                // .reverse()
                 .map((message: iMessage) => {
                     const me = message.type === 'outgoing'
                     return (

@@ -4,11 +4,12 @@ import iconVoiceMessage from '@/images/iconVoiceMessage.svg'
 import { UseMutationResult } from '@tanstack/react-query'
 import { KeyboardEvent, useState } from 'react'
 import { Button } from '../Button'
+import { iMessage } from 'entities/message'
 
 export function InputField({
-    messageInputMutation,
+    updateMessages,
 }: {
-    messageInputMutation: UseMutationResult<void, unknown, string, unknown>
+    updateMessages: (userInput: string) => Promise<void>
 }) {
     const [userInput, setUserInput] = useState<string>('')
 
@@ -17,7 +18,7 @@ export function InputField({
 
         if (key === 'Enter') {
             setUserInput('')
-            messageInputMutation.mutate(userInput)
+            updateMessages(userInput)
         }
     }
 

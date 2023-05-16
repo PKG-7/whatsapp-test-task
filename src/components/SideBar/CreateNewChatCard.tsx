@@ -1,50 +1,38 @@
-import { useChats } from 'hooks/useChats'
 import { FormEvent, useState } from 'react'
-import { createNewChat, iChat } from '../../entities/chat'
 
-export function CreateNewChatCard() {
+export function CreateNewChatCard({
+    handleCreateNewChat,
+}: {
+    handleCreateNewChat: (e: FormEvent<HTMLFormElement>, phoneInput: number) => void
+}) {
     const [isClicked, setisClicked] = useState(false)
-    const [inputPhone, setInputPhone] = useState<number>()
-    const { setChats, handleSync } = useChats()
+    const [inputPhone, setInputPhone] = useState<string>('')
 
-    const handleCreateNewChat = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         if (inputPhone) {
-            //TODO: VALidate number
-            //TODO: Add postfix validation here
-            const idPostfix = '@c.us'
-            const id = `${inputPhone}${idPostfix}`
-            const newChat: iChat = createNewChat(id)
-
-            // Api.createNewChat(newChat) //TODO: add new chat to db
-            setChats((prev) => [...(prev || []), newChat])
-            handleSync()
-
-            console.log(newChat)
+            handleCreateNewChat(e, Number(inputPhone))
+            setInputPhone('')
         }
     }
 
     return (
-        <button
+        <div
             onClick={() => setisClicked(true)}
-            className='flex items-center justify-center w-full h-[4rem] bg-[#111B21] hover:bg-[#2A3942] '
+            className='flex items-center justify-center w-full h-[4rem] bg-[#111B21] hover:bg-[#2A3942] cursor-pointer '
         >
             {!isClicked ? (
                 <div className='text-white  flex flex-col animate-pulse'>
-                    <div className='text-sm'>🌘 У вас нет чатов</div>
+                    {/* <div className='text-sm'>🌘 У вас нет чатов</div> */}
                     <div className='flex gap-1 font-bold'>
-                        <span>+</span>
-                        <span>Создать новый чат</span>
+                        {/* <span>+</span> */}
+                        <span>💌 Создать новый чат</span>
                     </div>
                 </div>
             ) : (
-                <form
-                    className='flex gap-2 text-white'
-                    onSubmit={(e) => handleCreateNewChat(e)}
-                >
+                <form className='flex gap-2 text-white' onSubmit={(e) => onSubmit(e)}>
                     <input
                         value={inputPhone}
-                        onChange={(e) => setInputPhone(Number(e.target.value))}
+                        onChange={(e) => setInputPhone(e.target.value)}
                         className='bg-gray-700 rounded-xl px-2'
                     />
                     <button
@@ -55,6 +43,6 @@ export function CreateNewChatCard() {
                     </button>
                 </form>
             )}
-        </button>
+        </div>
     )
 }

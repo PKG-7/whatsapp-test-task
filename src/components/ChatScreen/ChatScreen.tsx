@@ -4,16 +4,16 @@ import { ChatNavBar } from './ChatNavBar'
 import { InputField } from './InputField'
 
 export function ChatScreen({ selectedChatId }: { selectedChatId: string }) {
-    const { messages, messageInputMutation } = useChatById(selectedChatId)
+    const { messages, updateMessages } = useChatById(selectedChatId)
 
     return (
         <div className='flex w-full bg-[#222E35]'>
             <div className='flex flex-col w-full'>
-                <ChatNavBar />
+                <ChatNavBar selectedChatId={selectedChatId} />
 
                 <ChatMessagesScreen messages={messages} />
 
-                <InputField messageInputMutation={messageInputMutation} />
+                <InputField updateMessages={updateMessages} />
             </div>
         </div>
     )

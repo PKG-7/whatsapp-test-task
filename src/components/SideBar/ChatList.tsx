@@ -1,19 +1,17 @@
 import { useChats } from 'hooks/useChats'
 import { useFilterChats } from 'hooks/useFilterChats'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { iChat } from '../../entities/chat'
+import { useHasMounted } from 'hooks/useHasMounted'
+import { Dispatch, SetStateAction } from 'react'
 import ChatCard from '../ChatCard'
 import { CreateNewChatCard } from './CreateNewChatCard'
 import { SidebarSearch } from './SidebarSearch'
-import { SyncButton } from './SyncButton'
-import { useHasMounted } from 'hooks/useHasMounted'
 
 export function ChatList({
     setSelectedChatId,
 }: {
     setSelectedChatId: Dispatch<SetStateAction<string | null>>
 }) {
-    const { chats, handleSync, isSynced } = useChats()
+    const { chats, handleSync, isSynced, handleCreateNewChat } = useChats()
     const { searchInput, setSearchInput, filteredChatList } = useFilterChats(chats)
 
     const hasMounted = useHasMounted()
@@ -25,7 +23,7 @@ export function ChatList({
         <>
             <SidebarSearch search={searchInput} setSearch={setSearchInput} />
 
-            <SyncButton handleSync={handleSync} isSynced={isSynced} />
+            {/* <SyncButton handleSync={handleSync} isSynced={isSynced} /> */}
 
             <div className='flex flex-col w-full overflow-y-scroll'>
                 {filteredChatList?.map((chat, index) => (
@@ -36,9 +34,9 @@ export function ChatList({
                         key={chat.id}
                     />
                 ))}
-                {!filteredChatList ||
-                    (filteredChatList?.length === 0 && <CreateNewChatCard />)}
-                <CreateNewChatCard />
+                {/* {!filteredChatList || */}
+                {/* // (filteredChatList?.length === 0 && <CreateNewChatCard />)} */}
+                <CreateNewChatCard handleCreateNewChat={handleCreateNewChat} />
             </div>
         </>
     )
