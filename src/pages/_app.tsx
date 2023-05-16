@@ -1,13 +1,20 @@
-import "../styles/globals.css";
+import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { ConversationProvider } from "../context/ConversationContext";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { SelectedChatProvider } from 'context/ChatContext'
+
+const queryClient = new QueryClient()
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <ConversationProvider>
-      <Component {...pageProps} />
-    </ConversationProvider>
-  )
+    return (
+        <QueryClientProvider client={queryClient}>
+            <SelectedChatProvider>
+                <Component {...pageProps} />
+                <ReactQueryDevtools />
+            </SelectedChatProvider>
+        </QueryClientProvider>
+    )
 }
 
 export default MyApp

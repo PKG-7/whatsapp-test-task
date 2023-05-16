@@ -1,23 +1,22 @@
 import Image from 'next/image'
 
 interface AvatarProps {
-    width: string
-    height: string
+    scale: number
     image: string
 }
 
 export default function Avatar(props: AvatarProps) {
-    const { width, height, image } = props
+    const { scale, image } = props
 
     return (
-        <div className={`rounded-full ${width} ${height}`}>
-            <Image
-                src={`/assets/images/${image}`}
-                alt='Avatar Image'
-                width={'96px'}
-                height={'96px'}
-                className='rounded-full'
-            />
-        </div>
+        // <div className={` ${width} ${height}`}>
+        <Image
+            src={`/assets/images/${image}`}
+            alt='Avatar Image'
+            width={scale}
+            height={scale}
+            className='rounded-full'
+        />
+        // </div>
     )
 }

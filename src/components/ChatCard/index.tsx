@@ -1,52 +1,58 @@
-import { iConversationListData } from '@/types/Conversation'
-import { useContext, useState } from 'react'
-import { ConversationContext } from '../../context/ConversationContext'
+import defaultAvatar from '@/images/iconAvatarDefault.svg'
 import iconChatMenu from '@/images/iconChatMenu.svg'
-import Avatar from '../Avatar'
+import { iChat } from 'entities/chat'
 import Image from 'next/image'
+import { Dispatch, SetStateAction, useState } from 'react'
+import Avatar from '../Avatar'
 
-interface ConversationListProps {
+//TODO: Lastmessage, avatar, last time
+interface ChatCardProps {
     isFirstConversation?: boolean
-    data: iConversationListData
+    data: iChat
+    setSelectedChatId: Dispatch<SetStateAction<string | null>>
 }
 
-export default function ConversationList(props: ConversationListProps) {
-    const { isFirstConversation, data } = props
-    const { setConversation } = useContext(ConversationContext)
-    const { contactName, lastMessage, lastTime, image } = data
+export default function ChatCard({
+    isFirstConversation,
+    data,
+    setSelectedChatId,
+}: ChatCardProps) {
     const borderHeight = isFirstConversation ? '0px' : '1px'
     const [isHover, setHover] = useState(false)
 
     return (
         <div
-            className='flex items-center w-full h-[4.5rem] bg-[#111B21] pl-3 pr-4 hover:bg-[#2A3942] cursor-pointer'
+            className='flex items-center w-full h-[4rem] bg-[#111B21] pl-3 pr-4 hover:bg-[#2A3942] cursor-pointer'
             onMouseMove={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
-            onClick={() => setConversation(data)}
+            onClick={() => setSelectedChatId(data.id)}
         >
             <div className='flex w-[4.8rem]'>
-                <Avatar width='w-12' height='h-12' image={image} />
+                <Avatar scale={48} image={defaultAvatar} />
             </div>
             <div className='flex flex-col w-full'>
                 <hr
                     style={{ borderTop: `${borderHeight} solid rgba(134,150,160,0.15)` }}
                 />
-                <div className='flex py-2'>
+                <div className='flex py-2 w12'>
                     <div className='flex flex-col w-full h-full '>
                         <span className='overflow-y-hidden text-ellipsis text-white text-base'>
-                            {contactName}
+                            {data.id}
                         </span>
+
                         <span className='overflow-y-hidden text-ellipsis text-[#aebac1] text-sm'>
-                            {lastMessage}
+                            {'Last message'}
                         </span>
                     </div>
+
                     <div className='flex flex-col w-auto text-[#aebac1]'>
-                        <h1 className='text-xs'>{lastTime}</h1>
-                        {isHover ? (
+                        <h1 className='text-xs'>{'25:25'}</h1>
+
+                        {isHover && (
                             <span className='flex cursor-pointer h-full items-center rotate-90 justify-center'>
                                 <Image src={iconChatMenu} alt='iconChatMenu' />
                             </span>
-                        ) : null}
+                        )}
                     </div>
                 </div>
             </div>
