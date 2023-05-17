@@ -3,7 +3,7 @@ import { useScroll } from 'hooks/useScroll'
 import { useRef } from 'react'
 import MessageBalloon from '../MessageBalloon'
 
-export function ChatMessagesScreen({ messages }: { messages: iMessage[] }) {
+export function MessagesScreen({ messages }: { messages: iMessage[] }) {
     const chatContainerRef = useRef<HTMLDivElement>(null)
     useScroll(messages, chatContainerRef)
 

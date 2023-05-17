@@ -1,16 +1,11 @@
 import { useChats } from 'hooks/useChats'
 import { useFilterChats } from 'hooks/useFilterChats'
 import { useHasMounted } from 'hooks/useHasMounted'
-import { Dispatch, SetStateAction } from 'react'
 import ChatCard from '../ChatCard'
 import { CreateNewChatCard } from './CreateNewChatCard'
 import { SidebarSearch } from './SidebarSearch'
 
-export function ChatList({
-    setSelectedChatId,
-}: {
-    setSelectedChatId: Dispatch<SetStateAction<string | null>>
-}) {
+export function ChatList() {
     const { chats, handleSync, isSynced, handleCreateNewChat } = useChats()
     const { searchInput, setSearchInput, filteredChatList } = useFilterChats(chats)
 
@@ -27,7 +22,6 @@ export function ChatList({
             <div className='flex flex-col w-full overflow-y-scroll'>
                 {filteredChatList?.map((chat, index) => (
                     <ChatCard
-                        setSelectedChatId={setSelectedChatId}
                         data={chat}
                         isFirstConversation={index === 0}
                         key={chat.id}

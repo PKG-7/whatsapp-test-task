@@ -2,21 +2,19 @@ import defaultAvatar from '@/images/iconAvatarDefault.svg'
 import iconChatMenu from '@/images/iconChatMenu.svg'
 import { iChat } from 'entities/chat'
 import Image from 'next/image'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useContext, useState } from 'react'
 import Avatar from '../Avatar'
+import { ChatContext } from 'context/ChatContext'
 
 //TODO: Lastmessage, avatar, last time
 interface ChatCardProps {
     isFirstConversation?: boolean
     data: iChat
-    setSelectedChatId: Dispatch<SetStateAction<string | null>>
 }
 
-export default function ChatCard({
-    isFirstConversation,
-    data,
-    setSelectedChatId,
-}: ChatCardProps) {
+export default function ChatCard({ isFirstConversation, data }: ChatCardProps) {
+    const { setSelectedChatId } = useContext(ChatContext)
+
     const borderHeight = isFirstConversation ? '0px' : '1px'
     const [isHover, setHover] = useState(false)
 

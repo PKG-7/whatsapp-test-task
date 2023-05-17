@@ -1,22 +1,28 @@
 import { createContext, ReactNode, useState } from 'react'
-import { iChat } from 'entities/chat'
 
 interface ChatContextType {
-    selectedChat: iChat | null
-    setSelectedChat: (chat: iChat | null) => void
+    selectedChatId: string | null
+    setSelectedChatId: (chatId: string | null) => void
 }
 
-interface SelectedChatProviderProps {
-    children: ReactNode
+const initialChatContext: ChatContextType = {
+    selectedChatId: null,
+    setSelectedChatId: () => {},
 }
 
-export const ChatContext = createContext<ChatContextType>({} as ChatContextType)
+export const ChatContext = createContext<ChatContextType>(initialChatContext)
 
-export const SelectedChatProvider = ({ children }: SelectedChatProviderProps) => {
-    const [selectedChat, setSelectedChat] = useState<iChat | null>(null)
+export const SelectedChatProvider = ({ children }: { children: ReactNode }) => {
+    const [selectedChatId, setSelectedChatId] = useState<string | null>(null)
+
+    const handleSetSelectedChatId = (chatId: string | null) => {
+        setSelectedChatId(chatId)
+    }
 
     return (
-        <ChatContext.Provider value={{ selectedChat, setSelectedChat }}>
+        <ChatContext.Provider
+            value={{ selectedChatId, setSelectedChatId: handleSetSelectedChatId }}
+        >
             {children}
         </ChatContext.Provider>
     )

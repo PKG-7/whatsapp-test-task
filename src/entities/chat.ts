@@ -1,5 +1,3 @@
-import { iMessage } from './message'
-
 export interface iChat {
     id: string // id user who we chat with ('24124521@c.us')
     contactName: string | null

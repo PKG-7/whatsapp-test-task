@@ -1,32 +1,22 @@
-import { LoginScreen } from '@/components/LoginScreen'
 import { Placeholder } from '@/components/Placeholder'
-import { useHasMounted } from 'hooks/useHasMounted'
-import { useSecrets } from 'hooks/useSecrets'
-import { useState } from 'react'
+import MainLayout from 'Layouts/MainLayout'
+import { ChatContext } from 'context/ChatContext'
+import { useContext } from 'react'
 import { ChatScreen } from '../components/ChatScreen/ChatScreen'
 import SideBar from '../components/SideBar'
 
 export default function Home() {
-    const [selectedChatId, setSelectedChatId] = useState<string | null>(null)
-    const { secrets, setSecrets } = useSecrets()
-
-    //TODO: Сделать Auth Page на server components с Next auth
-    const hasMounted = useHasMounted()
-    if (!hasMounted) {
-        return <div>💀💀💀Skeleton loading</div>
-    }
-
-    if (!secrets) return <LoginScreen setSecrets={setSecrets} />
+    const { selectedChatId } = useContext(ChatContext)
 
     return (
-        <div className='flex w-full h-screen'>
-            <SideBar setSelectedChatId={setSelectedChatId} />
+        <MainLayout>
+            <SideBar />
 
             {selectedChatId ? (
                 <ChatScreen selectedChatId={selectedChatId} />
             ) : (
                 <Placeholder />
             )}
-        </div>
+        </MainLayout>
     )
 }

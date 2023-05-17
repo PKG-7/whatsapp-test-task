@@ -1,10 +1,8 @@
 import iconEmoji from '@/images/iconEmoji.svg'
 import iconFile from '@/images/iconFile.svg'
 import iconVoiceMessage from '@/images/iconVoiceMessage.svg'
-import { UseMutationResult } from '@tanstack/react-query'
 import { KeyboardEvent, useState } from 'react'
 import { Button } from '../Button'
-import { iMessage } from 'entities/message'
 
 export function InputField({
     updateMessages,

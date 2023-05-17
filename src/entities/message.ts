@@ -1,13 +1,54 @@
 export type iMessage = IncomingMessage | OutgoingMessage
 
-export const createNewTextMessage = (text: string, idMessage: string, chatId: string) => {
+export const createNewTextMessage = (
+    text: string,
+    idMessage: string,
+    chatId: string,
+    timestamp?: number,
+) => {
     const newMessage: iMessage = {
         textMessage: text,
         idMessage,
         chatId,
         type: 'outgoing',
         typeMessage: 'textMessage',
-        timestamp: Date.now(),
+        timestamp: timestamp || Date.now(),
+    }
+    return newMessage
+}
+type iIncomingMessageX = {
+    receiptId: number
+    body: {
+        idMessage: string
+        instanceData: {
+            idInstance: number
+            typeInstance: string
+            wid: string
+        }
+        messageData: {
+            textMessageData: {
+                textMessage: string
+            }
+            typeMessage: string
+        }
+        senderData: {
+            chatId: string
+            chatName: string
+            sender: string
+            senderName: string
+        }
+        timestamp: number
+        typeWebhook: string
+    }
+}
+export const createIncomingTextMessage = (notification: iIncomingMessageX) => {
+    const newMessage: iMessage = {
+        textMessage: notification.body.messageData.textMessageData.textMessage,
+        idMessage: notification.body.idMessage,
+        chatId: notification.body.senderData.chatId,
+        type: 'incoming',
+        typeMessage: 'textMessage',
+        timestamp: notification.body.timestamp,
     }
     return newMessage
 }
@@ -73,10 +114,10 @@ export interface ExtendedTextMessage {
     jpegThumbnail: string
 }
 
-export function isOutgoingMessage(message: iMessage): message is OutgoingMessage {
+export function isOutgoingMessageX(message: iMessage): message is OutgoingMessage {
     return message.type === 'outgoing'
 }
 
-export function isIncomingMessage(message: iMessage): message is IncomingMessage {
+export function isIncomingMessageX(message: iMessage): message is IncomingMessage {
     return message.type === 'incoming'
 }
