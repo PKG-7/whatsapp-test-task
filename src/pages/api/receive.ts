@@ -4,7 +4,6 @@ import { NextApiRequest, NextApiResponse } from 'next'
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { IdInstance, ApiToken } = req.body
 
-    const url = `https://api.green-api.com/waInstance${IdInstance}/receiveNotification/${ApiToken}`
     // const chatId = `${phoneNumber}@c.us`
 
     // const config = {
@@ -12,6 +11,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     //     url,
     //     headers: {},
     // }
+
+    const url = `https://api.green-api.com/waInstance${IdInstance}/receiveNotification/${ApiToken}`
 
     axios(url)
         .then(function (response) {

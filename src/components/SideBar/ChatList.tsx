@@ -22,9 +22,8 @@ export function ChatList({
     return (
         <>
             <SidebarSearch search={searchInput} setSearch={setSearchInput} />
-
+            {/* //TODO: Так и не понял есть ли ограничения по Api запросам, пока пусть лежит */}
             {/* <SyncButton handleSync={handleSync} isSynced={isSynced} /> */}
-
             <div className='flex flex-col w-full overflow-y-scroll'>
                 {filteredChatList?.map((chat, index) => (
                     <ChatCard

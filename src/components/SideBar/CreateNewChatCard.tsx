@@ -12,6 +12,7 @@ export function CreateNewChatCard({
         if (inputPhone) {
             handleCreateNewChat(e, Number(inputPhone))
             setInputPhone('')
+            setisClicked(false)
         }
     }
 

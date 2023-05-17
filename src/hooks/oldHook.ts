@@ -1,3 +1,5 @@
+export const zxvzxvzxvzx = 1
+
 //     //TODO: переписать
 // const useCHAD = (chatId: string) => {
 //     const [messages, setMessages] = useState<iMessage[]>([])

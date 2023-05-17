@@ -9,5 +9,5 @@ export const useScroll = (
         if (chatContainerRef.current) {
             chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
         }
-    }, [messageHistory.length])
+    }, [messageHistory.length, chatContainerRef])
 }

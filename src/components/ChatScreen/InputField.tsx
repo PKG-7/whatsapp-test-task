@@ -16,6 +16,8 @@ export function InputField({
     const handleSendMessage = (e: KeyboardEvent<HTMLInputElement>) => {
         const { key } = e
 
+        //TODO: Validation if send ' ' etc
+
         if (key === 'Enter') {
             setUserInput('')
             updateMessages(userInput)

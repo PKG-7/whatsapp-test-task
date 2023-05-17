@@ -16,18 +16,16 @@ export default function MessageBalloon({
 
     //TODO: што
     useEffect(() => {
-        setTime(refreshTime())
-    }, [])
-
-    function refreshTime() {
         const date = new Date(message.timestamp)
-        return date.toLocaleString('en-US', {
+        const time = date.toLocaleString('en-US', {
             hour: 'numeric',
             minute: 'numeric',
             hour12: false,
         })
-    }
+        setTime(time)
+    }, [message.timestamp])
 
+    //TODO: Flex тестировать
     return (
         <div className={`flex flex-col ${flexAlignItems} w-full h-max`}>
             <div

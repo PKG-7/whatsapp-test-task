@@ -6,7 +6,7 @@ export function Placeholder() {
     return (
         <div className='flex w-full bg-[#222E35]'>
             <div className='flex flex-col w-full h-full items-center justify-center'>
-                <Image src={iconPlaceholderImage} alt='placeholder' />
+                <Image src={iconPlaceholderImage} priority alt='placeholder' />
 
                 <div className='flex flex-col items-center mt-10'>
                     <h1 className='text-[#e9edef] text-3xl font-extralight'>
