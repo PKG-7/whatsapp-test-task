@@ -1,3 +1,6 @@
+//@ts-nocheck
+
+//*  indexedDb api
 export const DbApi = {
     openDatabase: (databaseName: string, version: number): Promise<IDBDatabase> => {
         return new Promise((resolve, reject) => {

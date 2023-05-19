@@ -26,7 +26,6 @@ export function useNotifications(secrets: iUserSecrets | null) {
                 } else if (notification.body.typeWebhook === 'incomingMessageReceived') {
                     if (data) {
                         console.log('Получено текстовое сообщение')
-                        console.log(notification.body.messageData.textMessageData)
                         setNewNotification(data)
                     }
                 } else {

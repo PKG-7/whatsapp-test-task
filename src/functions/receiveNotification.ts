@@ -1,4 +1,4 @@
-import { iNotification } from 'entities/notifications'
+import { iNotification } from 'entities/notifications/IncomingMessage'
 import { iUserSecrets } from 'entities/userSecrets'
 
 export const receiveNotification = async (secrets: iUserSecrets) => {

@@ -16,7 +16,7 @@ export const useSecrets = () => {
             setApiToken(secrets.apiToken)
             setidInstance(secrets.idInstance)
         }
-    }, [])
+    }, [secrets])
 
     return { idInstance, apiToken, secrets, setSecrets }
 }

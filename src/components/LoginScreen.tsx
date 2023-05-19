@@ -18,7 +18,7 @@ export function LoginScreen({ setSecrets }: LoginScreenProps) {
             const userSecrets = createNewUserSecrets(idInstance, apiKey)
             setSecrets(userSecrets)
         } else {
-            console.log('WTF BRO') //TODO:  handle
+            console.log('WTF') //TODO:  handle
         }
     }
 
