@@ -5,9 +5,11 @@ import { KeyboardEvent, useState } from 'react'
 import { Button } from '../Button'
 
 export function InputField({
-    updateMessages,
+    selectedChatId,
+    handleSendTextMessage,
 }: {
-    updateMessages: (userInput: string) => Promise<void>
+    selectedChatId: string
+    handleSendTextMessage: (chatId: string, userInput: string) => Promise<void>
 }) {
     const [userInput, setUserInput] = useState<string>('')
 
@@ -18,19 +20,19 @@ export function InputField({
 
         if (key === 'Enter') {
             setUserInput('')
-            updateMessages(userInput)
+            handleSendTextMessage(selectedChatId, userInput)
         }
     }
 
     return (
-        <footer className='flex items-center gap-1 bg-[#202c33] w-full h-16 py-3 px-1 text-[#8696a0]'>
+        <footer className='flex items-center gap-1 bg-primary w-full h-16 py-3 px-1 text-[#8696a0]'>
             <Button icon={iconEmoji} alt='icon Emoji' />
             <Button icon={iconFile} alt='icon File' />
 
             <div className='flex w-[90%] h-12 ml-3'>
                 <input
                     type={'text'}
-                    className='bg-[#2a3942] rounded-lg w-full px-3 py-3 text-white'
+                    className='bg-accent rounded-lg w-full px-3 py-3 text-white'
                     placeholder='Введите сообщение'
                     onKeyDown={(e) => handleSendMessage(e)}
                     onChange={(e) => setUserInput(e.target.value)}

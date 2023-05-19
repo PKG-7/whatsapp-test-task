@@ -9,11 +9,6 @@ export function ChatList() {
     const { chats, handleSync, isSynced, handleCreateNewChat } = useChats()
     const { searchInput, setSearchInput, filteredChatList } = useFilterChats(chats)
 
-    const hasMounted = useHasMounted()
-    if (!hasMounted) {
-        return <div>💀💀💀Skeleton</div>
-    }
-
     return (
         <>
             <SidebarSearch search={searchInput} setSearch={setSearchInput} />

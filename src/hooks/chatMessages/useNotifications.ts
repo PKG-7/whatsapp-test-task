@@ -1,52 +1,60 @@
-import { iNotification } from 'entities/notifications'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { iUserSecrets } from 'entities/userSecrets'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { deleteNotification } from '../../functions/deleteNotification'
 import { receiveNotification } from '../../functions/receiveNotification'
-import { useSecrets } from 'hooks/useSecrets'
+import { iNotification } from 'entities/notifications/IncomingMessage'
 
-export function useNotifications(selectedChatId: string) {
-    const { secrets } = useSecrets()
-    const [newNotificationsList, setNewNotificationsList] = useState<iNotification[]>([])
+export function useNotifications(secrets: iUserSecrets | null) {
     const [newNotification, setNewNotification] = useState<iNotification | null>(null)
 
-    useEffect(() => {
-        async function processNotifications(secrets: iUserSecrets | null) {
+    const { data, refetch } = useQuery(
+        ['notification'],
+        async () => {
             if (secrets) {
                 const notification = await receiveNotification(secrets)
-                console.log(notification)
-
-                if (notification) {
-                    setNewNotificationsList((prev) => [...prev, notification])
-                    await deleteNotification(notification.receiptId, secrets)
-                    setNewNotification(notification) // Set the newNotification state here
-                }
+                return notification
             }
+        },
+        {
+            onSuccess: (notification) => {
+                console.log(notification)
+                if (notification === null) {
+                    console.log('Нет новых оповещений')
+                } else if (notification === undefined) {
+                    console.log('Не удалось получить новое оповещение')
+                } else if (notification.body.typeWebhook === 'incomingMessageReceived') {
+                    if (data) {
+                        console.log('Получено текстовое сообщение')
+                        console.log(notification.body.messageData.textMessageData)
+                        setNewNotification(data)
+                    }
+                } else {
+                    console.log(
+                        'Получено оповещение другого типа, мы их пока не обрабатываем',
+                    )
+                    popNotification(notification, secrets)
+                }
+                refetch()
+            },
+        },
+    )
+
+    async function popNotification(
+        notification: iNotification,
+        secrets: iUserSecrets | null,
+    ) {
+        if (secrets) {
+            await deleteNotification(notification.receiptId, secrets)
+            setNewNotification(null)
+            console.log('Уведомление удалено')
+        } else {
+            console.log('Уведомление не удаленно, так как нет сеанса')
         }
-
-        processNotifications(secrets)
-
-        // Return a cleanup function
-        return () => {
-            // ...cleanup code...
-        }
-    }, [selectedChatId])
-
-    function popNotification(notification: iNotification) {
-        // Perform your processing logic with the notification here
-
-        // After processing, remove the notification from the list
-        setNewNotificationsList((prev) =>
-            prev.filter((item) => item.receiptId !== notification.receiptId),
-        )
-
-        setNewNotification(null) // Clear the newNotification state
-
-        return notification
     }
 
     return {
-        popNotification,
         newNotification,
+        popNotification,
     }
 }

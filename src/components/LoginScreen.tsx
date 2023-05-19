@@ -23,7 +23,7 @@ export function LoginScreen({ setSecrets }: LoginScreenProps) {
     }
 
     return (
-        <div className='flex flex-col items-center justify-center gap-4 h-screen font-bold'>
+        <div className='flex flex-col bg-gradient-to-t from-black to-indigo-950-900 via-slate-900 items-center justify-center gap-4 h-screen font-bold'>
             <div className='bg-black p-20 rounded-xl'>
                 <div className='flex gap-2'>
                     <div className='flex items-end'>

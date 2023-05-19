@@ -4,7 +4,7 @@ import iconPlaceholderImage from '@/images/iconPlaceholderImage.svg'
 
 export function Placeholder() {
     return (
-        <div className='flex w-full bg-[#222E35]'>
+        <div className='flex w-full bg-primary'>
             <div className='flex flex-col w-full h-full items-center justify-center'>
                 <Image src={iconPlaceholderImage} priority alt='placeholder' />
 

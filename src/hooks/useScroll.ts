@@ -1,8 +1,8 @@
-import { iMessage } from 'entities/message'
+import { iMessageStored } from 'entities/messages/storedMessages'
 import { RefObject, useEffect } from 'react'
 
 export const useScroll = (
-    messageHistory: iMessage[],
+    messageHistory: iMessageStored[],
     chatContainerRef: RefObject<HTMLDivElement>,
 ) => {
     useEffect(() => {

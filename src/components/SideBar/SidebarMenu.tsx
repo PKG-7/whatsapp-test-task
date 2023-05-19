@@ -7,8 +7,8 @@ import { Button } from '../Button'
 
 export function SidebarMenu() {
     return (
-        <div className='flex items-center h-14 justify-between w-full px-4'>
-            <div className='flex py-3 items-center'>
+        <div className='flex items-center h-14 justify-between w-full px-4 bg-primary'>
+            <div className='flex items-center'>
                 <Avatar scale={40} image='avatar.jpg' />
             </div>
 

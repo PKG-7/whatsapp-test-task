@@ -1,24 +1,32 @@
-import { useChatById } from 'hooks/chatMessages/useChatById'
 import { useNotifications } from 'hooks/chatMessages/useNotifications'
+import { useSelectedChatMessages } from 'hooks/chatMessages/useSelectedChatMessages'
+import { useStoredChats } from 'hooks/chatMessages/useStorageMessages'
+import { useSecrets } from 'hooks/useSecrets'
 import { MessagesScreen } from './ChatMessagesScreen'
 import { ChatNavBar } from './ChatNavBar'
 import { InputField } from './InputField'
 
 export function ChatScreen({ selectedChatId }: { selectedChatId: string }) {
-    const { popNotification, newNotification } = useNotifications(selectedChatId)
+    const { secrets } = useSecrets()
+    const { newNotification, popNotification } = useNotifications(secrets)
 
-    const { messages, updateMessages } = useChatById(
-        selectedChatId,
+    const { storedChats, handleSendTextMessage } = useStoredChats(
         newNotification,
         popNotification,
+        secrets,
     )
 
+    const { messages } = useSelectedChatMessages(storedChats, selectedChatId)
+
     return (
-        <div className='flex w-full bg-[#222E35]'>
-            <div className='flex flex-col w-full'>
+        <div className='flex w-full h-full bg-primary'>
+            <div className='flex flex-col w-full '>
                 <ChatNavBar selectedChatId={selectedChatId} />
                 <MessagesScreen messages={messages} />
-                <InputField updateMessages={updateMessages} />
+                <InputField
+                    selectedChatId={selectedChatId}
+                    handleSendTextMessage={handleSendTextMessage}
+                />
             </div>
         </div>
     )
