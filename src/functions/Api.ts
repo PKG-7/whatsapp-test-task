@@ -59,7 +59,7 @@ export const Api = {
     //*📧 Creates new chat with number (id) provided
     createNewChat: async (newChat: iChat, secrets: iUserSecrets) => {},
 
-    //*📧 GetChats
+    //*📧 Получить историю чата всего 300 запросов на бесплатном тарифе
     getChatHistory: async (chatId: string, secrets: iUserSecrets) => {
         const myHeaders = new Headers()
         myHeaders.append('Content-Type', 'application/json')
@@ -73,7 +73,6 @@ export const Api = {
             method: 'POST',
             headers: myHeaders,
             body: raw,
-            // redirect: 'follow',
         }
 
         try {
@@ -104,7 +103,6 @@ export const Api = {
     getChats: async (secrets: iUserSecrets) => {
         const requestOptions = {
             method: 'GET',
-            // redirect: 'follow',
         }
 
         try {

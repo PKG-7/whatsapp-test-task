@@ -5,7 +5,9 @@ import { iStoredUserChats } from './useStorageMessages'
 export const useSelectedChatMessages = (
     storedChats: iStoredUserChats | null,
     selectedChatId: string,
-) => {
+): {
+    messages: iMessageStored[] | []
+} => {
     const [messages, setMessages] = useState<iMessageStored[]>([])
 
     useEffect(() => {

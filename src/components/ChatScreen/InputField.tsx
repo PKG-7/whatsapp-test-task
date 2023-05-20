@@ -16,11 +16,11 @@ export function InputField({
     const handleSendMessage = (e: KeyboardEvent<HTMLInputElement>) => {
         const { key } = e
 
-        //TODO: Validation if send ' ' etc
-
         if (key === 'Enter') {
+            if (userInput.trim() !== '') {
+                handleSendTextMessage(selectedChatId, userInput)
+            }
             setUserInput('')
-            handleSendTextMessage(selectedChatId, userInput)
         }
     }
 

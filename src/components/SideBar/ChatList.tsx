@@ -4,6 +4,7 @@ import { useHasMounted } from 'hooks/useHasMounted'
 import ChatCard from '../ChatCard'
 import { CreateNewChatCard } from './CreateNewChatCard'
 import { SidebarSearch } from './SidebarSearch'
+import { SyncButton } from './SyncButton'
 
 export function ChatList() {
     const { chats, handleSync, isSynced, handleCreateNewChat } = useChats()

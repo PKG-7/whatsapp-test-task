@@ -1,9 +1,9 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
+import { iNotification } from 'entities/notifications/IncomingMessage'
 import { iUserSecrets } from 'entities/userSecrets'
 import { useState } from 'react'
 import { deleteNotification } from '../../functions/deleteNotification'
 import { receiveNotification } from '../../functions/receiveNotification'
-import { iNotification } from 'entities/notifications/IncomingMessage'
 
 export function useNotifications(secrets: iUserSecrets | null) {
     const [newNotification, setNewNotification] = useState<iNotification | null>(null)
@@ -18,19 +18,18 @@ export function useNotifications(secrets: iUserSecrets | null) {
         },
         {
             onSuccess: (notification) => {
-                console.log(notification)
                 if (notification === null) {
                     console.log('Нет новых оповещений')
                 } else if (notification === undefined) {
-                    console.log('Не удалось получить новое оповещение')
+                    console.log('Не удалось получить новое оповещение. Все вопросы к API')
                 } else if (notification.body.typeWebhook === 'incomingMessageReceived') {
                     if (data) {
-                        console.log('Получено текстовое сообщение')
+                        console.log('Получено новое входящее сообщение')
                         setNewNotification(data)
                     }
                 } else {
                     console.log(
-                        'Получено оповещение другого типа, мы их пока не обрабатываем',
+                        'Получено оповещение другого типа, мы их пока не обрабатываем и удаляем',
                     )
                     popNotification(notification, secrets)
                 }

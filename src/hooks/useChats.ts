@@ -1,13 +1,13 @@
 import { Api } from '@/functions/Api'
 import { createNewChat, iChat } from 'entities/chat'
 import { iUserSecrets } from 'entities/userSecrets'
-import { FormEvent, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export const useChats = (): {
     chats: iChat[] | null
     handleSync: () => Promise<void>
     isSynced: boolean
-    handleCreateNewChat: (e: FormEvent<HTMLFormElement>, phoneInput: number) => void
+    handleCreateNewChat: (phoneInput: number) => void
 } => {
     const [isSynced, setIsSynced] = useState(false)
     const [chats, setChats] = useState<iChat[] | null>(null)
@@ -25,12 +25,10 @@ export const useChats = (): {
         }
     }, [])
 
-    const handleCreateNewChat = (e: FormEvent<HTMLFormElement>, phoneInput: number) => {
-        e.preventDefault()
-        //TODO: VALidate number
-
-        //TODO: Add postfix validation here
+    const handleCreateNewChat = (phoneInput: number) => {
+        //TODO: Add postfix validation here depending on country
         const idPostfix = '@c.us'
+
         const id = `${phoneInput}${idPostfix}`
         const newChat: iChat = createNewChat(id)
         console.log(newChat)

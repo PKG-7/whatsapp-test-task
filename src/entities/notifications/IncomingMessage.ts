@@ -3,7 +3,7 @@ export type iNotification = {
     body: iIncomingMessageBodyType
 }
 
-//TODO: ПОМЕНЯТЬ!!!
+//TODO: Добавить типы если надо будет
 interface OutgoingMessageBodyType {}
 
 export interface iIncomingMessageBodyType {

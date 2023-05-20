@@ -1,23 +1,41 @@
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
 export function CreateNewChatCard({
     handleCreateNewChat,
 }: {
-    handleCreateNewChat: (e: FormEvent<HTMLFormElement>, phoneInput: number) => void
+    handleCreateNewChat: (phoneInput: number) => void
 }) {
     const [isClicked, setisClicked] = useState(false)
-    const [inputPhone, setInputPhone] = useState<string>('')
 
-    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-        if (inputPhone) {
-            handleCreateNewChat(e, Number(inputPhone))
-            setInputPhone('')
-            setisClicked(false)
-        }
-    }
+    type PhoneInput = z.infer<typeof schema>
+    const schema = z
+        .object({
+            number: z
+                .string()
+                .min(11, { message: 'Недостаточно цифр' })
+                .max(11, { message: 'Слишком много цифр' }),
+        })
+        .refine((input) => input.number.startsWith('7'), {
+            message: 'Номер должен начинаться с 7',
+            path: ['number'],
+        })
 
-    const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-        setInputPhone(e.target.value)
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        setValue,
+    } = useForm<PhoneInput>({
+        resolver: zodResolver(schema),
+    })
+
+    const onSubmit = (data: PhoneInput) => {
+        handleCreateNewChat(Number(data.number))
+        setisClicked(false)
+        setValue('number', '')
     }
 
     if (!isClicked)
@@ -27,7 +45,6 @@ export function CreateNewChatCard({
                 className='flex items-center justify-center w-full h-[4rem] bg-secondary hover:bg-accent  cursor-pointer '
             >
                 <div className='text-white hover:bg-accent flex flex-col animate-pulse'>
-                    {/* <div className='text-sm'>🌘 У вас нет чатов</div> */}
                     <div className='flex gap-1 font-bold'>
                         <span>💌 Создать новый чат</span>
                     </div>
@@ -36,13 +53,13 @@ export function CreateNewChatCard({
         )
 
     return (
-        <div className='flex items-center justify-center w-full h-[4rem] bg-secondary  cursor-pointer '>
-            <form className=' flex gap-2 text-white' onSubmit={(e) => onSubmit(e)}>
+        <div className='flex flex-col items-center justify-center w-full h-[4rem] bg-secondary  cursor-pointer '>
+            <form className=' flex gap-2 text-white' onSubmit={handleSubmit(onSubmit)}>
                 <input
+                    type='number'
                     placeholder='79991112233'
-                    value={inputPhone}
-                    onChange={handleInput}
                     className='bg-gray-700 rounded-xl px-2'
+                    {...register('number')}
                 />
                 <button
                     type='submit'
@@ -51,6 +68,11 @@ export function CreateNewChatCard({
                     Добавить
                 </button>
             </form>
+            <div>
+                {errors.number && (
+                    <span className='text-red-500'>{errors.number.message}</span>
+                )}
+            </div>
         </div>
     )
 }

@@ -8,7 +8,7 @@ interface AvatarProps {
 
 export default function Avatar(props: AvatarProps) {
     const { scale, image } = props
-    //TODO: get imag efrom api
+    //TODO: get image from api
 
     return (
         // <div className={` ${width} ${height}`}>
