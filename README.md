@@ -1,38 +1,62 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Установка
 
-## Getting Started
+### 1. Качаем и распковываем или клонируем проект
 
-First, run the development server:
+### 2. Вводим в консоль
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+```
+npm i
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Вводим в консоль
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```
+npm run dev
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### 4. Открываем [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+# В проекте использовались Next, Typescript, Tailwind, React Query, Zod
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```
 
-## Learn More
+Попробовать отправить и получить сообщения можно только с токеном, так как он привязывается к реальному телефонному номеру.
 
-To learn more about Next.js, take a look at the following resources:
+Api ключи, привязанные к моему номеру могу Вам дать для тестирования по запросу. Напишите мне в Telegram.
+Или можно получить свои в сервисе: https://green-api.com/index.html
 
--   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
--   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Ссылка на Деплой: [https://whatsapp-pkg.vercel.app/](https://whatsapp-pkg.vercel.app/)
 
-## Deploy on Vercel
+### Поставленная задача:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+Требования:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Требуется разработать пользовательский интерфейс для отправки и получений
+   сообщений WhatsApp
+2. Требуется использовать сервис GREEN-API https://green-api.com/
+3. Требуется реализовать отправку и получение только текстовых сообщений
+4. Требуется за прототип интерфейса взять внешний вид чата
+   https://web.whatsapp.com/
+5. Требуется реализовать интерфейс максимально простым с минимальным набором
+   функций
+
+6. Требуется отправку сообщений реализовать методом https://green-
+   api.com/docs/api/sending/SendMessage/
+
+7. Требуется получение сообщений реализовать методом https://green-
+   api.com/docs/api/receiving/technology-http-api/
+
+8. Требуется использовать технологию React
+
+Ожидаемый результат:
+• Пользователь переходит на сайт чата и вводит свои учетные данные из
+системы GREEN-API (idInstance, apiTokenInstance)
+• Пользователь вводит номер телефона получателя и создает новый чат
+• Пользователь пишет текстовое сообщение и отправляет его получателю в
+WhatsApp
+• Получатель отвечает на сообщение в мессенджере WhatsApp
+• Пользователь видит ответ получателя в чате
+```
