@@ -1,8 +1,7 @@
-import { Dispatch, SetStateAction } from 'react'
-
 import iconFilter from '@/images/iconFilter.svg'
 import iconSearch from '@/images/iconSearch.svg'
 import Image from 'next/image'
+import { Dispatch, SetStateAction } from 'react'
 import { Button } from '../Button'
 
 export function SidebarSearch({
