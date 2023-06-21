@@ -14,19 +14,19 @@ export default function MessageBalloon({
     const backgroundColor = isCurrentUserMessage ? 'bg-message-user' : 'bg-primary'
     const borderRounded = isCurrentUserMessage ? 'rounded-tr-none' : 'rounded-tl-none'
 
-    console.log(message.timestamp)
+    // console.log(message.timestamp)
     //TODO: што
     useEffect(() => {
         const date = new Date(message.timestamp)
-        console.log(date)
+        // console.log(date)
         const time = date.toLocaleString('ru-Ru', {
             hour: 'numeric',
             minute: 'numeric',
             hour12: false,
         })
-        console.log()
+        // console.log()
         setTime(time)
-        console.log(time)
+        // console.log(time)
     }, [message.timestamp])
 
     //TODO: Flex тестировать
