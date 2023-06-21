@@ -41,7 +41,8 @@ export const createIncomingTextMessage = (notification: iNotification) => {
         chatId: notification.body.senderData.chatId,
         type: 'incoming',
         typeMessage: 'textMessage',
-        timestamp: notification.body.timestamp,
+        timestamp: Date.now(), // Server gives wrong time so we rewrite it,
+        //its not even different timezone its like 15:42 instead of 20:00
     }
     return newMessage
 }
