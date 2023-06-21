@@ -4,6 +4,7 @@ import {
     iIncomingMessageBodyType,
     iNotification,
 } from 'entities/notifications/IncomingMessage'
+import { getTime } from '../../functions/getTime'
 
 export type iMessageStored = OutgoingTextMessageStored | IncomingTextMessageStored
 
@@ -20,6 +21,7 @@ export const createStoredTextMessage = (
         chatId,
         type: 'outgoing',
         typeMessage: 'textMessage',
+        time: getTime(),
         timestamp: timestamp || Date.now(),
     }
     return newMessage
@@ -31,19 +33,24 @@ export interface OutgoingTextMessageStored {
     type: 'outgoing'
     chatId: string
     typeMessage: 'textMessage'
+    time: string
     timestamp: number
 }
 
 export const createIncomingTextMessage = (notification: iNotification) => {
+    const newMessageChatId = notification.body.senderData.chatId
+
     const newMessage: IncomingTextMessageStored = {
         text: notification.body.messageData.textMessageData.textMessage,
         idMessage: notification.body.idMessage,
-        chatId: notification.body.senderData.chatId,
+        chatId: newMessageChatId,
         type: 'incoming',
         typeMessage: 'textMessage',
-        timestamp: notification.body.timestamp,
+        time: getTime(),
+        timestamp: Date.now(), // Server gives wrong time so we rewrite it,
+        //its not even different timezone its like 15:42 instead of 20:00
     }
-    return newMessage
+    return { newMessage, newMessageChatId }
 }
 
 export interface IncomingTextMessageStored {
@@ -53,4 +60,5 @@ export interface IncomingTextMessageStored {
     type: 'incoming'
     typeMessage: 'textMessage'
     timestamp: number
+    time: string
 }

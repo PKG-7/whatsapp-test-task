@@ -3,6 +3,7 @@ import iconFile from '@/images/iconFile.svg'
 import iconVoiceMessage from '@/images/iconVoiceMessage.svg'
 import { KeyboardEvent, useState } from 'react'
 import { Button } from '../Button'
+import { doNothing } from '../SideBar/SidebarMenu'
 
 export function InputField({
     selectedChatId,
@@ -25,9 +26,9 @@ export function InputField({
     }
 
     return (
-        <footer className='flex items-center gap-1 bg-primary w-full h-16 py-3 px-1 text-[#8696a0]'>
-            <Button icon={iconEmoji} alt='icon Emoji' />
-            <Button icon={iconFile} alt='icon File' />
+        <footer className='flex items-center gap-1 bg-primary w-full h-16 py-3 px-1 text-[#8696a0] z-10'>
+            <Button onClick={doNothing} icon={iconEmoji} alt='icon Emoji' />
+            <Button onClick={doNothing} icon={iconFile} alt='icon File' />
 
             <div className='flex w-[90%] h-12 ml-3'>
                 <input
@@ -40,7 +41,11 @@ export function InputField({
                 />
             </div>
 
-            <Button icon={iconVoiceMessage} alt='icon Voice Message' />
+            <Button
+                onClick={doNothing}
+                icon={iconVoiceMessage}
+                alt='icon Voice Message'
+            />
         </footer>
     )
 }

@@ -4,7 +4,7 @@ module.exports = {
     theme: {
         extend: {
             backgroundImage: {
-                'chat-background': "url('/assets/background.jpg')",
+                'chat-background': "url('/assets/background.png')",
             },
             width: {
                 'bar-width': '35rem',

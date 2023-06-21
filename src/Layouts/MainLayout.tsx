@@ -8,10 +8,9 @@ interface LayoutProps {
 }
 
 export default function MainLayout({ children }: LayoutProps) {
-    //TODO: Убрать на сервер
+    //TODO: Можно вернуть SSR если будет необходимость, пока он убит
     const { secrets, setSecrets } = useSecrets()
 
-    //TODO: Сделать Auth Page на server components с Next auth
     const hasMounted = useHasMounted()
     if (!hasMounted) {
         return <div>💀💀💀Skeleton loading</div>
