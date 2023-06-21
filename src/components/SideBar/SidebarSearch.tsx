@@ -3,6 +3,7 @@ import iconSearch from '@/images/iconSearch.svg'
 import Image from 'next/image'
 import { Dispatch, SetStateAction } from 'react'
 import { Button } from '../Button'
+import { doNothing } from './SidebarMenu'
 
 export function SidebarSearch({
     search,
@@ -26,7 +27,7 @@ export function SidebarSearch({
                 />
             </div>
 
-            <Button icon={iconFilter} alt='filter' scale={24} />
+            <Button icon={iconFilter} onClick={doNothing} alt='filter' scale={24} />
         </div>
     )
 }
