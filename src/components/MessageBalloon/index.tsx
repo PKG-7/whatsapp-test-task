@@ -21,7 +21,7 @@ export default function MessageBalloon({
                 <div className='flex flex-col w-full relative break-words'>
                     <div className='pr-8 relative'>
                         <span>{message.text}</span>
-                        <span className='absolute bottom-[-6px] right-[-2px] text-[hsla(0,0%,100%,0.6)] text-xs mt-1'>
+                        <span className='absolute select-none bottom-[-6px] right-[-2px] text-[hsla(0,0%,100%,0.6)] text-xs mt-1'>
                             {message.time}
                         </span>
                     </div>

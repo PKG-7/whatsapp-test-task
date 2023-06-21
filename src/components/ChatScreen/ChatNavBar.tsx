@@ -14,7 +14,7 @@ export function ChatNavBar({
     avatarUrl?: string | undefined | null
 }) {
     return (
-        <div className='flex justify-between bg-primary w-full h-16 px-4 select-none'>
+        <div className='flex justify-between bg-primary w-full h-16 px-4 select-none z-10'>
             <div className='flex items-center gap-4 h-full cursor-pointer'>
                 <Avatar scale={40} image={'NOO'} />
                 <h1 className='text-white font-normal'>

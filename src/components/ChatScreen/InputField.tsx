@@ -25,7 +25,7 @@ export function InputField({
     }
 
     return (
-        <footer className='flex items-center gap-1 bg-primary w-full h-16 py-3 px-1 text-[#8696a0]'>
+        <footer className='flex items-center gap-1 bg-primary w-full h-16 py-3 px-1 text-[#8696a0] z-10'>
             <Button icon={iconEmoji} alt='icon Emoji' />
             <Button icon={iconFile} alt='icon File' />
 
