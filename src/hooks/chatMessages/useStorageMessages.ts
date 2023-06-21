@@ -1,13 +1,13 @@
+import { Api } from '@/functions/Api'
 import {
     createIncomingTextMessage,
     createStoredTextMessage,
     iMessageStored,
 } from 'entities/messages/storedMessages'
-import { useLocalStorage } from 'hooks/useLocalStorage'
-import { useEffect } from 'react'
 import { iNotification } from 'entities/notifications/IncomingMessage'
 import { iUserSecrets } from 'entities/userSecrets'
-import { Api } from '@/functions/Api'
+import { useLocalStorage } from 'hooks/useLocalStorage'
+import { useEffect } from 'react'
 
 export type iStoredUserChats = {
     [key: string]: iMessageStored[]
@@ -32,25 +32,25 @@ export function useStoredChats(
     useEffect(() => {
         const storedObj = storedChats || {}
 
-        if (newNotification) {
-            const hookType = newNotification.body.typeWebhook
+        if (newNotification?.body.typeWebhook === 'incomingMessageReceived') {
+            const { newMessage, newMessageChatId } =
+                createIncomingTextMessage(newNotification) // Создаем объект для нового сообщения и получаем его ChatID
 
-            if (hookType === 'incomingMessageReceived') {
-                const newMessage = createIncomingTextMessage(newNotification)
-                const messageChatId = newNotification.body.senderData.chatId
+            const currentChatMessages = storedObj[newMessageChatId] || [] // Получаем чаты из Localstorage
 
-                const currentChatMessages = storedObj[messageChatId] || []
+            const updatedMessages = currentChatMessages.filter(
+                (message) => message.idMessage !== newMessage.idMessage, // фильтруем от дубликатов
+            )
 
-                const updatedMessages = [...currentChatMessages, newMessage]
+            updatedMessages.push(newMessage)
 
-                const updatedStoredChats = {
-                    ...storedChats,
-                    [messageChatId]: updatedMessages,
-                }
-
-                setStoredChats(updatedStoredChats)
-                popNotification(newNotification, secrets)
+            const updatedStoredChats = {
+                ...storedObj,
+                [newMessageChatId]: updatedMessages, // Обновленный объект всех чатов
             }
+
+            setStoredChats(updatedStoredChats) // Перезаписываем объект всех чатов в LocalStorage
+            popNotification(newNotification, secrets) // Удаляем Notification полученное от API, чтобы получать следующие
         }
     }, [newNotification])
 
