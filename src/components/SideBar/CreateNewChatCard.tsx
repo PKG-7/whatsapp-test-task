@@ -15,11 +15,11 @@ export function CreateNewChatCard({
         .object({
             number: z
                 .string()
-                .min(11, { message: 'Недостаточно цифр' })
-                .max(11, { message: 'Слишком много цифр' }),
+                .min(11, { message: '❌ Недостаточно цифр' })
+                .max(11, { message: '❌ Слишком много цифр' }),
         })
         .refine((input) => input.number.startsWith('7'), {
-            message: 'Номер должен начинаться с 7',
+            message: '❌ Номер должен начинаться с 7',
             path: ['number'],
         })
 
@@ -53,7 +53,7 @@ export function CreateNewChatCard({
         )
 
     return (
-        <div className='flex flex-col items-center justify-center w-full h-[4rem] bg-secondary  cursor-pointer '>
+        <div className='flex flex-col items-center justify-center w-full h-[6rem] bg-secondary  cursor-pointer relative '>
             <form className=' flex gap-2 text-white' onSubmit={handleSubmit(onSubmit)}>
                 <input
                     type='number'
@@ -68,9 +68,11 @@ export function CreateNewChatCard({
                     Добавить
                 </button>
             </form>
-            <div>
+            <div className='absolute bottom-0 bg-gray-800 rounded-xl px-2 '>
                 {errors.number && (
-                    <span className='text-red-500'>{errors.number.message}</span>
+                    <span className='text-red-500 font-bold'>
+                        {errors.number.message}
+                    </span>
                 )}
             </div>
         </div>
